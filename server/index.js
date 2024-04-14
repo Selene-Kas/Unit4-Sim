@@ -35,48 +35,38 @@ const init = async() => {
   console.log('tables created');
 
   // Product Types 
-  const [coffee, wholebean, brew] = await Promise.all([
-    createProduct_Type({ name: 'coffee'}),
-    createProduct_Type({ name: 'wholebean'}),
-    createProduct_Type({ name: 'brew'})
+  const [action, mystery, romance] = await Promise.all([
+    createProduct_Type({ name: 'action'}),
+    createProduct_Type({ name: 'mystery'}),
+    createProduct_Type({ name: 'romance'})
   ]);
 
   // Users
-  const [harry, hermoine, ron] = await Promise.all([
-    createUser({ firstName: 'harry', lastName: 'potter', username: 'harry@gmail.com', password: 'hogwarts1'}),
-    createUser({ firstName: 'hermoine', lastName: 'granger',username: 'hermoine@gmail.com', password: 'hogwarts2'}),
-    createUser({ firstName: 'ron', lastName: 'weasly',username: 'ron@gmail.com', password: 'hogwarts3'})
+  const [peter, tony] = await Promise.all([
+    createUser({ firstName: 'peter', lastName: 'parker', username: 'peter@gmail.com', password: 'spiderman1'}),
+    createUser({ firstName: 'tony', lastName: 'stark',username: 'tony@gmail.com', password: 'stark2'})
   ]);
 
   // Products
-  const [ColdBrew, Latte] = await Promise.all([
-    createProduct({name: 'Cold Brew', product_price: 4.00, 
-    description: 'Black coffee on ice.', 
-    img: 'https://www.seriouseats.com/thmb/U-LNa28nrdRi_nRUjcJAjDgtd5g=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/IcedCoffee-9e66377b914346d9b166bf45d2065619.jpg',
-     qty_available: 100, product_type: coffee.id}),
-    createProduct({name: 'Latte', product_price: 5.00, 
-    description: 'Coffee on ice with milk.', 
-    img: 'https://www.caffesociety.co.uk/assets/recipe-images/latte-small.jpg',
-     qty_available: 100, product_type: coffee.id}),
-    createProduct({name: 'Macchiato', product_price: 5.50, 
-    description: 'A double shot of espresso, topped with steamed milk',
-    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkevAXm9AtKYpYJg6MB3nv3t8iT2nCcehjSw&s',
-    qty_available:'100', product_type: coffee.id}),
-    createProduct({name: 'Dirty Chai Latte', product_price: 6.00,
-    description: 'Coffee with Chai tea and milk', 
-    img: 'https://shottbeverages.com/wp-content/uploads/2020/06/dirty_chai_vanill_latte.jpg',
-    qty_available: 100, product_type: coffee.id}),
-    createProduct({name: 'Frappucino', product_price: 6.50, 
-    description: 'Coffee blended with ice and milk. Topped with whip cream.',
-    img: 'https://freshbeanbakery.com/wp-content/uploads/2023/06/CaramelFrap-Photo3-683x1024.jpg',
-    qty_available: 100, product_type: coffee.id})
+  const [Avengers, Spiderman] = await Promise.all([
+    createProduct({name: 'Avengers', product_price: 15.00, 
+    description: 'the avengers battle thanos', 
+    img: 'https://www.coverwhiz.com/uploads/movies/avengers-infinity-war.jpg',
+     qty_available: 100, product_type: action.id}),
+    createProduct({name: 'Spiderman', product_price: 15.00, 
+    description: 'life of peter parker and his secret life as spiderman', 
+    img: 'https://media.comicbook.com/wp-content/uploads/2012/05/538954_379573022086607_109890852388160_1093845_1750201828_n.jpg',
+     qty_available: 100, product_type: action.id}),
+    createProduct({name: 'Titanic', product_price: 15.50, 
+    description: 'rose and jack fall in love',
+    img: 'https://i.redd.it/es9pbmd98s6b1.jpg',
+    qty_available:'100', product_type: romance.id})
   ]);
 
   // Carts
-  const [ one, two, three ] = await Promise.all([
-    createCart({ user_id: harry.id }),
-    createCart({ user_id: hermoine.id }),
-    createCart({ user_id: ron.id })
+  const [ one, two ] = await Promise.all([
+    createCart({ user_id: peter.id }),
+    createCart({ user_id: tony.id })
   ]);
 
   console.log(await fetchAllUsers());
@@ -85,9 +75,9 @@ const init = async() => {
 
   //Cart Products
   const cartProducts = await Promise.all([
-    createCartProduct(one.id, ColdBrew.id, 1),
-    createCartProduct(two.id, ColdBrew.id, 1),
-    createCartProduct(two.id, Latte.id, 2)
+    createCartProduct(one.id, mystery.id, 1),
+    createCartProduct(two.id, mystery.id, 1),
+    createCartProduct(two.id, action.id, 2)
   ]);
   console.log(await fetchCartProducts(one.id));
   console.log(await fetchCartProducts(two.id));
