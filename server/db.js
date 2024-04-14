@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
-const client = new pg.Client(process.env.DATABASE_URL || 'postgres://localhost/cafe_latte_db');
+const client = new pg.Client(process.env.DATABASE_URL || 'postgres://localhost/unit-sim-db');
 
 async function createTables() {
   const SQL = `
@@ -238,12 +238,12 @@ const fetchCartProducts = async(cart_id) => {
   return response.rows;
 };
 
-const deleteCartProduct = async(id, cart_id)=> {
+const deleteCartProduct = async(cart_id, product_id)=> {
   const SQL = `
     DELETE FROM cart_products
-    WHERE id = $1 AND cart_id = $2
+    WHERE cart_id = $1 AND product_id = $2 
   `;
-  await client.query(SQL, [id, cart_id]);
+  await client.query(SQL, [cart_id, product_id]);
 }
 
 module.exports = {
