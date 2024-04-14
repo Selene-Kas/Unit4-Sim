@@ -53,15 +53,14 @@ router.post('/:cartId/cart_products/:cartProductId', async(req, res, next)=> {
 });
 
 // delete cart_product
-router.delete('/:cartId/cart_products/:cartProductId', async(req, res, next)=> {
+router.delete('/:cartId/cart_products/:productId', async(req, res, next)=> {
   try{
-    await deleteCartProduct(req.params.cartId, req.params.cartProductId);
-    res.status(204);
+    await deleteCartProduct(req.params.cartId, req.params.productId);
+    res.sendStatus(204);
   } catch(err) {
     next(err);
   }
-})
-
+});
   
 
 module.exports = router;
