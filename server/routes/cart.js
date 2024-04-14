@@ -44,9 +44,9 @@ router.get('/:cartId/cart_products', async(req, res, next)=> {
 });
 
 // POST route for creating a cartProduct. Adding a product to cart
-router.post('/:cartId/cart_products/:cartProductId', async(req, res, next)=> {
+router.post('/:cartId/cart_products/:productId', async(req, res, next)=> {
   try {
-    res.status(201).send(await createCartProduct(req.params.cartId, req.params.cartProductId, req.body.qty));
+    res.status(201).send(await createCartProduct(req.params.cartId, req.params.productId, req.body.qty));
   } catch(err) {
     next(err);
   }
